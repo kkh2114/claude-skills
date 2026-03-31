@@ -359,7 +359,15 @@ CLAUDE.md는 에이전트의 **진입점(entry point)**이다.
 
 각 `00-system/prompts/[role].md`:
 → `references/agent-archetypes.md` 참조
-- 정체성, 독립성 선언, 관점, 분석 프로세스, 아웃풋 형식, 절대 금지
+- 정체성, 독립성 선언(포인터), 관점, 분석 프로세스, 절대 금지
+
+> **아웃풋 형식 정본 규칙 (Source of Truth)**:
+> - `00-system/templates/*.md`가 아웃풋 구조의 **정본(source of truth)**이다.
+> - 에이전트 프롬프트(`prompts/*.md`)에는 아웃풋 형식을 **인라인하지 않는다**.
+>   대신 `아웃풋 형식: → 00-system/templates/[해당-template].md 참조` 포인터를 둔다.
+> - 에이전트별로 템플릿 필드가 다른 경우, 범용 템플릿 대신 에이전트별 템플릿을 분리한다.
+>   (예: research-template.md를 academic/trend/product별로 분리)
+> - **이유**: 프롬프트와 템플릿 양쪽에 동일 구조를 두면 수정 시 drift가 발생한다.
 
 ### 2-2e. 프로토콜 5종
 

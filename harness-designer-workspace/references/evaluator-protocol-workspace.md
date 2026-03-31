@@ -118,12 +118,15 @@ Generator가 생성해야 하는 파일 목록을 Glob/Read로 확인한다.
 |---|------|------|---------|------|
 | 4-1 | progress.json 구조 | 파일 존재 + last_session, next_todo 필드 | 파일 존재하나 구조 불완전 | 없음 (장기 시 FAIL) |
 | 4-2 | Initializer/Operating Agent 분리 | AGENTS.md에 분리 명시 | 암시적 구분 | 구분 없음 |
-| 4-3 | 문서 간 일관성 | 에이전트 수가 CLAUDE.md/AGENTS.md/prompts/ 일치 | 1개 불일치 | 2개 이상 불일치 |
+| 4-3 | 문서 간 일관성 | 독립 에이전트 수가 CLAUDE.md/AGENTS.md/prompts/ 일치 | 1개 불일치 | 2개 이상 불일치 |
 
 **확인 방법:**
 - 4-1: Read progress.json → 필드 확인 (단발 프로젝트면 N/A → PASS)
 - 4-2: Grep `Initializer|첫.*실행|Operating|반복` in AGENTS.md
-- 4-3: CLAUDE.md 에이전트 수 vs AGENTS.md vs prompts/ 파일 수 비교
+- 4-3: CLAUDE.md **독립** 에이전트 수 vs AGENTS.md vs prompts/ 파일 수 비교
+  > **Chairman 예외**: Chairman은 메인 세션이므로 prompts/ 파일이 없는 것이 정상.
+  > AGENTS.md에서 Chairman을 제외한 독립 에이전트 수 == prompts/ 파일 수로 비교한다.
+  > (→ agent-archetypes.md "Chairman 패턴" 참조)
 
 ---
 

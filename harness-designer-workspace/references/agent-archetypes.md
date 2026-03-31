@@ -3,10 +3,15 @@
 ## Chairman 패턴 (모든 도메인 공통)
 
 Chairman은 별도 에이전트가 아닌 **메인 Claude 세션**이 담당한다.
+따라서 `00-system/prompts/`에 Chairman 전용 프롬프트 파일을 만들지 **않는다**.
+
+> **Evaluator 참고**: 에이전트 수 일치 검증(4-3) 시 Chairman은 제외한다.
+> 즉, `AGENTS.md 독립 에이전트 수 == prompts/ 파일 수`로 비교한다.
+> AGENTS.md에 Chairman이 포함되어 있더라도 prompts/ 파일과 1:1 대응하지 않는 것이 정상이다.
 
 ```
 역할: 독립 에이전트들의 결과를 수집·종합·최종 판단
-담당: 메인 세션
+담당: 메인 세션 (prompts/ 파일 불필요)
 모델: 구축 시 사용자가 결정 (AGENTS.md model_config에 기록)
       → 새 모델 출시 시 model_config만 업데이트
 아웃풋: Go / Pivot / No-Go / 추가분석
@@ -27,15 +32,19 @@ Chairman 판단 형식:
 
 ## 독립성 원칙 (모든 에이전트 공통)
 
-에이전트 파일에 반드시 포함:
+에이전트 파일에 반드시 포함하되, **전문을 복사하지 않는다**.
+정본은 `independence-protocol.md` 1곳이며, 프롬프트에는 포인터만 둔다.
 
 ```markdown
 ## 독립성 선언
-- 다른 에이전트 결과를 보기 전에 분석한다
-- 사용자의 기대 방향에 동조하지 않는다
-- 데이터가 말하는 것만 말한다
-- 출처 없는 주장은 하지 않는다
+> 상세 규칙: → 00-system/protocols/independence-protocol.md (정본)
+이 에이전트는 독립성 원칙을 준수한다: 선분석 후참조, 비동조, 출처 필수, 역할 경계.
 ```
+
+> **이유**: 독립성 규칙이 에이전트 프롬프트, AGENTS.md, independence-protocol.md 등
+> 여러 곳에 전문 복사되면 수정 시 drift가 발생한다.
+> "문서화만으로는 일관성 유지 불가" 원칙(enforcement-patterns.md)에 따라
+> 정본 1곳 + 포인터 방식으로 강제한다.
 
 ---
 
